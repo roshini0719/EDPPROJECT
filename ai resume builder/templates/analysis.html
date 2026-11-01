@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="container">
+        <div class="analysis-header">
+          <h2>AI Resume Analysis</h2>
+          <a href="{{ url_for('resume_preview') }}" class="primary-btn">View Resume Preview</a>
+        </div>
+
+        <div class="summary-grid">
+          <div class="card score-card">
+            <p>Resume Score</p>
+            <h3>{{ result.resume_score }}/100</h3>
+            <div class="progress-bar">
+              <span style="width: {{ result.resume_score }}%"></span>
+            </div>
+          </div>
+
+          <div class="card">
+            <p>Predicted Job Role</p>
+            <h3>{{ result.predicted_job_role }}</h3>
+            <small>{{ result.confidence }}% confidence</small>
+          </div>
+
+          <div class="card">
+            <p>Detected Skills</p>
+            <ul>
+              {% for skill in result.detected_skills %}
+              <li>{{ skill }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="card">
+            <p>Missing Skills</p>
+            <ul>
+              {% for skill in result.missing_skills %}
+              <li>{{ skill }}</li>
+              {% else %}
+              <li>No major skill gaps found.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="card full-width">
+            <h3>AI Suggestions</h3>
+            <ol>
+              {% for suggestion in result.suggestions %}
+              <li>{{ suggestion }}</li>
+              {% endfor %}
+            </ol>
+          </div>
+
+          <div class="card full-width">
+            <h3>Improved Career Objective</h3>
+            <p>{{ result.improved_objective }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

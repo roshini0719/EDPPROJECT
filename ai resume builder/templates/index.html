@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <p class="eyebrow">AIML Academic Project</p>
+          <h1>AI Resume Builder</h1>
+          <p class="subtitle">Build, Analyze and Improve Your Resume Using AI & Machine Learning</p>
+          <div class="button-group">
+            <a href="{{ url_for('resume_form') }}" class="primary-btn">Create Resume</a>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

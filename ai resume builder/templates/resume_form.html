@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="container">
+        <div class="topbar">
+          <h2>Resume Details</h2>
+          <button type="button" id="loadSample" class="secondary-btn small-btn">Load Sample Data</button>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-list">
+              {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form class="resume-form" action="{{ url_for('analyze') }}" method="post">
+          <section class="form-section">
+            <h3>Personal Information</h3>
+            <div class="grid two-col">
+              <label>Full Name <input type="text" name="full_name" value="{{ resume.get('full_name', '') }}" required /></label>
+              <label>Email <input type="email" name="email" value="{{ resume.get('email', '') }}" required /></label>
+              <label>Phone <input type="text" name="phone" value="{{ resume.get('phone', '') }}" /></label>
+              <label>Location <input type="text" name="location" value="{{ resume.get('location', '') }}" /></label>
+              <label>LinkedIn <input type="url" name="linkedin" value="{{ resume.get('linkedin', '') }}" /></label>
+              <label>GitHub <input type="url" name="github" value="{{ resume.get('github', '') }}" /></label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>Career Information</h3>
+            <div class="grid two-col">
+              <label>Career Objective <textarea name="career_objective" rows="3" required>{{ resume.get('career_objective', '') }}</textarea></label>
+              <label>Target Job Role
+                <select name="target_job_role">
+                  <option value="Data Scientist" {% if resume.get('target_job_role') == 'Data Scientist' %}selected{% endif %}>Data Scientist</option>
+                  <option value="Machine Learning Engineer" {% if resume.get('target_job_role') == 'Machine Learning Engineer' %}selected{% endif %}>Machine Learning Engineer</option>
+                  <option value="Data Analyst" {% if resume.get('target_job_role') == 'Data Analyst' %}selected{% endif %}>Data Analyst</option>
+                  <option value="Software Developer" {% if resume.get('target_job_role') == 'Software Developer' %}selected{% endif %}>Software Developer</option>
+                  <option value="Web Developer" {% if resume.get('target_job_role') == 'Web Developer' %}selected{% endif %}>Web Developer</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>Education</h3>
+            <div class="grid two-col">
+              <label>Degree <input type="text" name="degree" value="{{ resume.get('degree', '') }}" required /></label>
+              <label>College <input type="text" name="college" value="{{ resume.get('college', '') }}" /></label>
+              <label>Graduation Year <input type="text" name="graduation_year" value="{{ resume.get('graduation_year', '') }}" /></label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>Skills</h3>
+            <div class="grid two-col">
+              <label>Technical Skills <textarea name="technical_skills" rows="3" required>{{ resume.get('technical_skills', '') }}</textarea></label>
+              <label>Soft Skills <textarea name="soft_skills" rows="3">{{ resume.get('soft_skills', '') }}</textarea></label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>Experience</h3>
+            <label>Internship / Experience
+              <textarea name="experience" rows="4">{{ resume.get('experience', '') }}</textarea>
+            </label>
+          </section>
+
+          <section class="form-section">
+            <h3>Projects</h3>
+            <label>Project Name / Project Description
+              <textarea name="projects" rows="4">{{ resume.get('projects', '') }}</textarea>
+            </label>
+          </section>
+
+          <section class="form-section">
+            <h3>Certifications & Achievements</h3>
+            <div class="grid two-col">
+              <label>Certifications <textarea name="certifications" rows="3">{{ resume.get('certifications', '') }}</textarea></label>
+              <label>Achievements <textarea name="achievements" rows="3">{{ resume.get('achievements', '') }}</textarea></label>
+            </div>
+          </section>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Generate & Analyze Resume</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
